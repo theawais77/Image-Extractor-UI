@@ -3,9 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Extractor</title>
+    <link rel="stylesheet" href="main.css">
+    <title>ImageOCR - Extract Text from Images</title>
 </head>
 <body>
-    
+    <div class="container">
+        <header>
+            <h1>ImageOCR</h1>
+            <p>Extract text from images with high accuracy</p>
+        </header>
+
+        <main>
+            <section class="upload-section">
+                <div class="upload-container">
+                    <h2>Upload Your Image</h2>
+                    <label class="custom-file-upload">
+                        <input type="file" id="file-input" accept="image/*" />
+                        Choose Image
+                    </label>
+                    <p class="loading" id="loading">Processing... Please wait</p>
+                    <img id="image-preview" alt="Preview">
+                </div>
+
+                <div id="result-section">
+                    <h3>Extracted Text:</h3>
+                    <textarea id="result-text" readonly></textarea>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 ImageOCR made with &#10084;. All rights reserved.</p>
+    </footer>
+
+    <script href="main.js"></script>
 </body>
 </html>
