@@ -1,3 +1,15 @@
+window.onload = function() {
+    const token = localStorage.getItem('jwtToken');  // Get JWT token from localStorage
+
+    if (!token) {
+        // If no token found, redirect to login page
+        window.location.href = '/signIn/signIn.html';  // Adjust path if necessary
+    } else {
+        // Optionally, you can verify if the token is valid here (e.g., by decoding it)
+        // If you need more verification, like checking expiration, you can decode the token here
+    }
+};
+
 const fileInput = document.getElementById('file-input');
 const imagePreview = document.getElementById('image-preview');
 const resultText = document.getElementById('result-text');
