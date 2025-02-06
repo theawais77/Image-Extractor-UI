@@ -6,30 +6,40 @@ const loading = document.getElementById('loading');
 fileInput.addEventListener('change', function (e) {
     const file = e.target.files[0];
     if (file) {
-        // Create a URL for the file
+        // Display the image preview
         const imageUrl = URL.createObjectURL(file);
-
-        // Display the image preview using the URL
         imagePreview.style.display = 'block';
         imagePreview.src = imageUrl;
 
-        // Process the image (you can send the URL or file to your backend)
-        processImage(file, imageUrl);
+        // Process the image by sending it to the backend
+        processImage(file);
     }
 });
 
-async function processImage(file, imageUrl) {
+async function processImage(file) {
     loading.style.display = 'block';
     resultText.value = '';
 
-    // Simulate sending the image URL to your backend
-    console.log('Image URL:', imageUrl); // Log the URL for debugging
+    const formData = new FormData();
+    formData.append("image", file); 
 
-    // Simulate OCR processing with a timeout
-    setTimeout(() => {
-        // Replace this with actual OCR API call
-        const mockText = "This is a simulation of extracted text.\nReplace this with actual OCR results from your backend.";
-        resultText.value = mockText;
+    try {
+        const response = await fetch("http://localhost:3000/upload", {
+            method: "POST",
+            body: formData,
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to upload image: ${response.statusText}`);
+        }
+
+        const data = await response.json();  // Get the JSON response from backend
+        console.log("OCR Result from backend:", data.text);
+        resultText.value = data.text;
+    } catch (error) {
+        console.error("Error:", error.message);
+        resultText.value = "Error processing the image.";
+    } finally {
         loading.style.display = 'none';
-    }, 2000);
+    }
 }
